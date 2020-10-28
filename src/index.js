@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 app.post("/commands/lighthouse", (req, res) => {
   let payload = req.body;
 
-  if (!payload || payload.token !== config("STARBOT_COMMAND_TOKEN")) {
+  if (!payload || payload.token !== config("LIGHTHOUSE_COMMAND_TOKEN")) {
     let err =
       "✋  Star—what? An invalid slash token was provided\n" +
       "   Is your Slack slash token correctly configured?";
