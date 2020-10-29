@@ -71,6 +71,4 @@ const generateFullReport = async (url) => {
   return await generateCustomizedReport(url, null, deviceForms.MOBILE);
 };
 
-generateFullReport("https://example.com")
-
 module.exports = { generateFullReport, generateCustomizedReport };
