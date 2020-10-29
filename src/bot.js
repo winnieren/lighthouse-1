@@ -3,7 +3,7 @@
 const slack = require("slack");
 const _ = require("lodash");
 const config = require("./config");
-const {generateFullReport} = require("../commands/report");
+const {generateFullReport} = require("./commands/report");
 
 let bot = slack.rtm.client();
 
@@ -11,11 +11,12 @@ bot.started((payload) => {
   this.self = payload.self;
 });
 
-bot.message((msg) => {
+bot.message ( async (msg) => {
   if (msg.includes('help')){
     runHelp();
   } else if (msg.includes ('full')) {
-    generateFullReport("https://example.com");
+    let report = await generateFullReport("https://example.com");
+    return report;
   }
   if (!msg.user) return;
   if (!_.includes(msg.text.match(/<@([A-Z0-9])+>/gim), `<@${this.self.id}>`))
