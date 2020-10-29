@@ -52,6 +52,10 @@ app.post("/commands/lighthouse", (req, res) => {
   cmd.handler(payload, res);
 });
 
+app.post("/events/lighthouse", (req, res) => {
+  console.log(req)
+});
+
 app.listen(config("PORT"), (err) => {
   if (err) throw err;
 
