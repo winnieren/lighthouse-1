@@ -3,6 +3,7 @@
 const slack = require("slack");
 const _ = require("lodash");
 const config = require("./config");
+const {generateFullReport} = require("../commands/report");
 
 let bot = slack.rtm.client();
 
@@ -11,6 +12,11 @@ bot.started((payload) => {
 });
 
 bot.message((msg) => {
+  if (msg.includes('help')){
+    runHelp();
+  } else if (msg.includes ('full')) {
+    generateFullReport("https://example.com");
+  }
   if (!msg.user) return;
   if (!_.includes(msg.text.match(/<@([A-Z0-9])+>/gim), `<@${this.self.id}>`))
     return;
@@ -32,5 +38,18 @@ bot.message((msg) => {
     }
   );
 });
+
+// Show Help Text
+const runHelp = () => {
+  const params = {
+    icon_emoji: ':question:'
+  };
+
+  bot.postMessageToChannel(
+    'general',
+    `Write "/lighthouse run" for a full report or click on the customize report button to customize your report according to device sizes.`,
+    params
+  );
+}
 
 module.exports = bot;

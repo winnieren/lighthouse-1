@@ -32,7 +32,9 @@ const uploadFile = file => {
 
   s3.upload(params, function(err, data) {
     if (err) {
+      console.log(err)
       console.log('Something went wrong. Try again later.');
+      return;
     }
       console.log(`File uploaded successfully. ${data.Location}`);
   });
@@ -66,5 +68,7 @@ const generateCustomizedReport = async (url, categoryList, deviceForm) => {
 const generateFullReport = async (url) => {
   await generateCustomizedReport(url, null, deviceForms.MOBILE);
 };
+
+generateFullReport("https://example.com")
 
 module.exports = { generateFullReport, generateCustomizedReport };
