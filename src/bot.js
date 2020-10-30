@@ -9,11 +9,13 @@ let bot = slack.rtm.client();
 
 bot.started((payload) => {
   this.self = payload.self;
+  console.log(payload);
 });
 
 bot.message ( async (msg) => {
   if (msg.includes('help')){
     runHelp();
+    console.log('helpppp')
   } else if (msg.includes ('full')) {
     let report = await generateFullReport("https://example.com");
     return report;
@@ -48,7 +50,7 @@ const runHelp = () => {
 
   bot.postMessageToChannel(
     'general',
-    `Write "/lighthouse run" for a full report or click on the customize report button to customize your report according to device sizes.`,
+    `Write "/lighthouse full" for a full report or click on the customize report button to customize your report according to device sizes.`,
     params
   );
 }
